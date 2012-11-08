@@ -8,6 +8,7 @@ def record():
     print('This is what you have just typed in: {0}'.format(r))
     f = open('text.txt', 'a')
     f.write(r + '\n')
+    f.close()
 
 def read():
     f = open('text.txt', 'r')
@@ -18,6 +19,7 @@ def read():
         print('[{0}] - {1}'.format(i,line))
         if len(line) == 0:
             break
+    f.close()
 
 def search():
     f = open('text.txt','r')
@@ -31,12 +33,16 @@ def search():
         elif len(line) == 0:
             print('Nope no can do!')
             break
-
+    f.close()
+    
 def menu():
     while True:
         print('What would you like to do?\n')
-        choice = int(input('[1] Record a text\n[2] Read the file back\n[3] Search\n[4] quit\n'))
-
+        choice = 0
+        try:
+            choice = int(input('[1] Record a text\n[2] Read the file back\n[3] Search\n[4] quit\n'))
+        except ValueError:
+            print('Only integers allowed!')
         if choice == 1:
             record()
         elif choice == 2:
@@ -47,6 +53,12 @@ def menu():
             quit()
 
 def quit():
+    sys.exit()
+
+try:
+    f = open('text.txt','r')
+except IOError:
+    print('No data file therefore I quit!')
     sys.exit()
 
 menu()
