@@ -6,7 +6,6 @@ import sys
 def record():
     r = input('Record: ')
     print('This is what you have just typed in: {0}'.format(r))
-
     f = open('text.txt', 'a')
     f.write(r + '\n')
 
@@ -29,21 +28,25 @@ def search():
             print('Yes it\'s here!')
             print('Here it is: {0}'.format(line))
             break
-        else:
+        elif len(line) == 0:
             print('Nope no can do!')
             break
+
+def menu():
+    while True:
+        print('What would you like to do?\n')
+        choice = int(input('[1] Record a text\n[2] Read the file back\n[3] Search\n[4] quit\n'))
+
+        if choice == 1:
+            record()
+        elif choice == 2:
+            read()
+        elif choice == 3:
+            search()
+        elif choice == 4:
+            quit()
 
 def quit():
     sys.exit()
 
-print('What would you like to do?\n')
-choice = int(input('[1] Record a text\n[2] Read the file back\n[3] Search\n[4] quit\n'))
-
-if choice == 1:
-    record()
-elif choice == 2:
-    read()
-elif choice == 3:
-    search()
-elif choice == 4:
-    quit()
+menu()
